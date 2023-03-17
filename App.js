@@ -3,6 +3,9 @@ import CityDropdown from './CityDropdown';
 import cities from './cities';
 import React, { useState } from 'react';
 import styles from './styles';
+import FetchWeatherData from './fetchWeatherData';
+
+
 
 
 
@@ -15,7 +18,6 @@ function App() {
   };
 
 
-
   return (
     <ScrollView style={styles.backGround}>
       <View style={styles.content}>
@@ -25,26 +27,11 @@ function App() {
       <View style={styles.content}>
         <CityDropdown onSelect={handleCitySelect} />
 
-        
-          <Text style={styles.listCityText}>
-            {selectedCity ? selectedCity.name : "ei valittu"}
-          </Text>
-        
-        
-        
-        
+        <FetchWeatherData city={selectedCity ? selectedCity : cities.at(0)} />    
       </View>
-
-
-
     </ScrollView>
     
   );
 }
-
-
-
-
-
 
 export default App;

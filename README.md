@@ -9,7 +9,7 @@ This is a weather radar application that shows the locations of the Etteplan off
 * The drop-down menu at the top of the interface is used to select specific city weather information.
 
 ## Requiremetns 
-* node.js versio 18.14.0
+* node.js versio 8
 * Git
 
 ## Installation
@@ -20,7 +20,7 @@ This is a weather radar application that shows the locations of the Etteplan off
 ## Configuration
 * To use the OpenWeatherMap API, you need to sign up for a free account and obtain an API key.
 * Once you have obtained the API key, edit apiKey.env file in the root directory of the project.
-* In the apiKey.env file, change the following line: REACT_APP_API_KEY=your_api_key_here. Replace your_api_key_here with your actual API key.
+* In the apikey.js file, change the following line: const API_KEY="your_api_key_here". Replace your_api_key_here with your actual API key.
 
 ## Usage
 * Run npm start to start the application.

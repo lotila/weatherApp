@@ -1,20 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Button } from 'react-native';
+import CityDropdown from './CityDropdown';
+import cities from './cities';
+import React, { useState } from 'react';
+import styles from './styles';
 
-export default function App() {
+
+
+function App() {
+
+  const [selectedCity, setSelectedCity] = useState(null);
+
+  const handleCitySelect = (city) => {
+    setSelectedCity(city);
+  };
+
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ScrollView style={styles.backGround}>
+      <View style={styles.content}>
+        <Text style={styles.title}>Säätutka</Text>
+      </View>
+
+      <View style={styles.content}>
+        <CityDropdown onSelect={handleCitySelect} />
+
+        
+          <Text style={styles.listCityText}>
+            {selectedCity ? selectedCity.name : "ei valittu"}
+          </Text>
+        
+        
+        
+        
+      </View>
+
+
+
+    </ScrollView>
+    
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+
+
+
+export default App;

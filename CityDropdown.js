@@ -13,8 +13,17 @@ function CityDropdown({ onSelect })
     };
     const handleCitySelect = (city) => {
         setIsOpen(false);
-        onSelect(city);
+        
+        if (city.all) {
+            onSelect(cities);
+        }
+        else {
+            onSelect([city]);
+        }
+        
     };
+
+    const dropDownListSelections = [ { name: 'Näytä kaikki kaupungit', all: true }, ...cities];
 
     return (
         <View>
@@ -28,7 +37,7 @@ function CityDropdown({ onSelect })
             {/*valikko on auki*/}
             {isOpen && (
             <View style={styles.dropDownList}>
-                {cities.map((city) => (
+                { dropDownListSelections.map((city) => (
                     <TouchableOpacity key={city.name} onPress={() => handleCitySelect(city)}>
                         <Text style={styles.selectCityText}>{city.name}</Text>
                     </TouchableOpacity>

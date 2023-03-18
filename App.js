@@ -3,7 +3,7 @@ import CityDropdown from './CityDropdown';
 import cities from './cities';
 import React, { useState } from 'react';
 import styles from './styles';
-import FetchWeatherData from './fetchWeatherData';
+import FetchWeatherData from './FetchWeatherData';
 
 
 
@@ -11,7 +11,7 @@ import FetchWeatherData from './fetchWeatherData';
 
 function App() {
 
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(cities);
 
   const handleCitySelect = (city) => {
     setSelectedCity(city);
@@ -27,7 +27,7 @@ function App() {
       <View style={styles.backGround}>
         <CityDropdown onSelect={handleCitySelect} />
 
-        <FetchWeatherData city={selectedCity ? selectedCity : cities.at(0)} />    
+        {selectedCity.map((city) => <FetchWeatherData city={city}/>)}  
       </View>
     </ScrollView>
     

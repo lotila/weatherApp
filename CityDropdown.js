@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import cities from './cities';
 import styles from './styles';
 
@@ -11,14 +11,11 @@ function CityDropdown({ onSelect })
     const handleDropdownToggle = () => {
         setIsOpen(!isOpen);
     };
-  
     const handleCitySelect = (city) => {
         setIsOpen(false);
         onSelect(city);
     };
 
-
-  
     return (
         <View>
             {/*valikko on kiinni*/}
@@ -33,15 +30,13 @@ function CityDropdown({ onSelect })
             <View style={styles.dropDownList}>
                 {cities.map((city) => (
                     <TouchableOpacity key={city.name} onPress={() => handleCitySelect(city)}>
-                        <Text style={styles.selectedCityText}>{city.name}</Text>
+                        <Text style={styles.selectCityText}>{city.name}</Text>
                     </TouchableOpacity>
                 ))}
             </View> )}
         </View>
     );
   };
-
-
 
 
 export default CityDropdown;

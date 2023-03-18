@@ -83,6 +83,35 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly'
     },
+    weatherForecastBox: {
+        flexDirection: 'column',
+        borderColor: '#E6E6E6',
+        borderWidth: 1,
+    },
+    weatherForecastTimeText:
+    {
+        color: '#70757A',
+        fontSize: 13
+    },
+    weatherForecastTemperatureText:
+    {
+        color: '#70757A',
+        fontSize: 15
+    },
+    weatherForecastBasicInfoContainer: {
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    weatherForecastExtraInfoContainer: {
+        flexDirection: 'column',
+        backgroundColor: '#E5F6FD',
+        alignItems: 'center',
+    },
+    weatherForecastExtraInfo:
+    {
+        color: '#70757A',
+        fontSize: 10
+    }
     });
 
 

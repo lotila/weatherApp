@@ -3,22 +3,28 @@ import { View, Text } from 'react-native';
 import  API_KEY from './apikey';
 import WeatherIcon from './showIcon';
 import styles from './styles';
+import ShowWeatherForecast from './weatherForecastBox'
 
 
 function FetchWeatherData ({ city })
 {
-    const [weatherData, setWeatherData] = useState(null);
+    const [weatherData, setCurrentWeatherData] = useState(null);
+    const [weatherForecastData, setForecastWeatherData] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const language = "fi";
+    const CURRENT_WEATHER_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${city.latitude}&lon=${city.longitude}&units=metric&appid=${API_KEY}&lang=${language}`;
+    const FORECAST_WEATHER_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${city.latitude}&lon=${city.longitude}&appid=${API_KEY}&units=metric`;
 
     // fetch data
     useEffect(() => {
         const fetchWeatherData = async () => {
         try {
-            const response = await fetch( 
-                `https://api.openweathermap.org/data/2.5/weather?lat=${city.latitude}&lon=${city.longitude}&units=metric&appid=${API_KEY}&lang=${language}`);
-            const data = await response.json();
-            setWeatherData(data);
+            const [weatherDataTemp, weatherForecastDataTemp] = await Promise.all([
+                fetch(CURRENT_WEATHER_URL).then(res => res.json()),
+                fetch(FORECAST_WEATHER_URL).then(res => res.json())
+            ])
+            setCurrentWeatherData(weatherDataTemp);
+            setForecastWeatherData(weatherForecastDataTemp);
         } catch (error) {
             console.error(error);
         } finally {
@@ -39,7 +45,14 @@ function FetchWeatherData ({ city })
         } else {
           return day + "th";
         }
-      }
+    }
+
+    // sääennustuksien kutsut listassa
+    const weatherForecastArray = [];
+    for (let columnIndex = 0; columnIndex <= 4; columnIndex++) {
+        weatherForecastArray.push(
+            isLoading ? ( <Text>Lataa...</Text>) : (<ShowWeatherForecast weatherforecast={weatherForecastData.list[columnIndex]}/>));
+    }
 
     return (
         <View>
@@ -50,13 +63,12 @@ function FetchWeatherData ({ city })
                     {isLoading ? ( <Text>Lataa...</Text>) : (
                         <Text style={styles.weatherDescription}>{weatherData.weather[0].description}</Text>)}
                 </View>
-                
                 <View style={styles.temperatureContainer}>
                     {isLoading ? ( <Text>Lataa...</Text>) : (
                         <WeatherIcon iconCode={ weatherData.weather[0].icon } />)}
 
                     {isLoading ? ( <Text>Lataa...</Text>) : (
-                        <Text style={styles.temperatureText}>{parseInt(weatherData.main.temp)} {String.fromCodePoint(8451)}</Text>)}
+                        <Text style={styles.temperatureText}>{Math.round(parseFloat(weatherData.main.temp))} {String.fromCodePoint(8451)}</Text>)}
                 </View>
             </View>
             
@@ -65,7 +77,7 @@ function FetchWeatherData ({ city })
                 <View style={styles.cityNameContainer}>
                     {isLoading ? ( <Text>Lataa...</Text> ) : (
                         <Text style={styles.dateText}>{new Date(weatherData.dt*1000).toLocaleString('default', { month: 'short'})} 
-                        {addSuffix(new Date(weatherData.dt*1000).getDate())}</Text> )}
+                        {" "}{addSuffix(new Date(weatherData.dt*1000).getDate())}</Text> )}
                     {isLoading ? ( <Text>Lataa...</Text> ) : (
                         <Text style={styles.timeText}>{new Date(weatherData.dt*1000).getHours().toString().padStart(2, '0')}:
                         {new Date(weatherData.dt*1000).getMinutes().toString().padStart(2, '0')}</Text> )}
@@ -74,19 +86,16 @@ function FetchWeatherData ({ city })
                     {isLoading ? ( <Text>Lataa...</Text>) : (
                         <Text style={styles.weatherExtaInfo}>Tuuli: {weatherData.wind.speed} m/s</Text>)}
                     {isLoading ? ( <Text>Lataa...</Text>) : (
-                        <Text style={styles.weatherExtaInfo}>Humidity: {weatherData.main.humidity} %</Text>)}
+                        <Text style={styles.weatherExtaInfo}>Kosteus: {weatherData.main.humidity} %</Text>)}
                     {isLoading ? ( <Text>Lataa...</Text>) : (
-                        <Text style={styles.weatherExtaInfo}>Precipitation: {weatherData.rain?.['1h'] || 0} mm</Text>)}
-                    {console.log(weatherData)}
+                        <Text style={styles.weatherExtaInfo}>Sademäärä: {weatherData.rain?.['1h'] || 0} mm</Text>)}
                 </View>
             </View>
 
-
             {/*sääennustuksia 3h välein 5 kpl*/}
             <View style={styles.weatherForecastsContainer}>
-                
+                {weatherForecastArray}
             </View>
-
         </View>
     );
 };

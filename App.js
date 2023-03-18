@@ -19,12 +19,12 @@ function App() {
 
 
   return (
-    <ScrollView style={styles.backGround}>
-      <View style={styles.content}>
+    <ScrollView style={styles.topBar}>
+      <View style={styles.backGround}>
         <Text style={styles.title}>Säätutka</Text>
       </View>
 
-      <View style={styles.content}>
+      <View style={styles.backGround}>
         <CityDropdown onSelect={handleCitySelect} />
 
         <FetchWeatherData city={selectedCity ? selectedCity : cities.at(0)} />    

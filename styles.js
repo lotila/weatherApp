@@ -4,40 +4,85 @@ import { StyleSheet } from 'react-native';
 
 
 const styles = StyleSheet.create({
+    backGround: {
+        backgroundColor: '#ffffff'
+    },
+    topBar: {
+        backgroundColor: '#00A5E5'
+      },
+      title: {
+        fontSize: 23,
+        fontFamily: 'arial',
+        color: ' #262626',
+        marginTop: 50,
+        marginBottom: 50,
+        textAlign: 'center',
+    },
+    selectCityText: {
+        fontSize: 13,
+        fontFamily: 'arial',
+        color: ' #262626',
+        backgroundColor: '#F8F9FA',
+        padding: 16,
+        marginHorizontal: 50,
+        borderWidth: 1, 
+        borderColor: 'grey', 
+    },
     dropDownList: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        fontSize: 13,
+        fontFamily: 'arial',
+        color: ' #262626',
+        backgroundColor: '#F8F9FA',
+        padding: 10,
+        marginHorizontal: 50
     },
-    selectedCityText: {
-        margin: 10,
-        fontWeight: 'bold'
+    cityHeadingContainer: {
+        padding: 50,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
     },
-    listCityText:
-    {
-      fontSize: 20,
-      fontWeight: 'bold',
-      marginTop: 20,
-      marginBottom: 10,
-      margin: 16,
-      borderWidth: 2, 
-      borderColor: 'grey', 
-      padding: 16
+    cityNameContainer: {
+        flexDirection: 'column',
     },
-    content: {
-        textAlign: 'center',
-        backgroundColor: '#fff'
+    cityName: {
+        color: '#262626',
+        fontSize: 19
     },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginTop: 50,
-        marginBottom: 10
+    weatherDescription: {
+        color: '#70757A',
+        fontSize: 13
     },
-    backGround: {
-        backgroundColor: '#00A5E5'
-      }
+    temperatureContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
+    },
+    temperatureText: {
+        color: '#262626',
+        fontSize: 26
+    },
+    specificWeatherDataContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
+    },
+    dateText: {
+        color: '#262626',
+        fontSize: 19
+    },
+    timeText: {
+        color: '#70757A',
+        fontSize: 13
+    },
+    weatherExtaInfo: {
+        color: '#70757A',
+        fontSize: 13
+    },
+    weatherForecastsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
+    },
     });
 
 

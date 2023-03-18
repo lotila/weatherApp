@@ -23,7 +23,7 @@ function CityDropdown({ onSelect })
         <View>
             {/*valikko on kiinni*/}
             <TouchableOpacity onPress={handleDropdownToggle}>
-                <Text style={styles.listCityText}>
+                <Text style={styles.selectCityText}>
                     {'Kaikki kaupungit'}
                 </Text>
             </TouchableOpacity>

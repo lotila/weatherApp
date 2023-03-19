@@ -22,7 +22,7 @@ const ShowWeatherForecast = ({ weatherforecast }) => {
             <View style={styles.weatherForecastExtraInfoContainer}>
                 <Text style={styles.weatherForecastExtraInfo}>{weatherforecast.wind.speed} m/s</Text>
                 <Text style={styles.weatherForecastExtraInfo}>{weatherforecast.main.humidity} %</Text>
-                <Text style={styles.weatherForecastExtraInfo}>{weatherforecast.rain?.['1h'] || 0} mm</Text>
+                <Text style={styles.weatherForecastExtraInfo}>{weatherforecast.rain?.['3h'] || 0} mm</Text>
             </View>
         </View>
     );

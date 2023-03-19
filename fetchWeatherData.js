@@ -51,44 +51,47 @@ function FetchWeatherData ({ city })
     const weatherForecastArray = [];
     for (let columnIndex = 0; columnIndex <= 4; columnIndex++) {
         weatherForecastArray.push(
-            isLoading ? ( <Text>Lataa...</Text>) : (<ShowWeatherForecast weatherforecast={weatherForecastData.list[columnIndex]}/>));
+            isLoading ? ( <Text key={columnIndex}>Lataa...</Text>) : (
+                <ShowWeatherForecast key={columnIndex} weatherforecast={weatherForecastData.list[columnIndex]}/>));
     }
 
     return (
         <View>
-            {/*kaupunki ja lämpötila*/}
-            <View style={styles.cityHeadingContainer}>
-                <View style={styles.cityNameContainer}>
-                    <Text style={styles.cityName}>{city.name}</Text>
-                    {isLoading ? ( <Text>Lataa...</Text>) : (
-                        <Text style={styles.weatherDescription}>{weatherData.weather[0].description}</Text>)}
+            <View style={styles.cityDataContainer}>
+                {/*kaupunki ja lämpötila*/}
+                <View style={styles.cityHeadingContainer}>
+                    <View style={styles.cityNameContainer}>
+                        <Text style={styles.cityName}>{city.name}</Text>
+                        {isLoading ? ( <Text>Lataa...</Text>) : (
+                            <Text style={styles.weatherDescription}>{weatherData.weather[0].description}</Text>)}
+                    </View>
+                    <View style={styles.cityNameContainer}>
+                        {isLoading ? ( <Text>Lataa...</Text> ) : (
+                            <Text style={styles.dateText}>{new Date(weatherData.dt*1000).toLocaleString('default', { month: 'short'})} 
+                            {" "}{addSuffix(new Date(weatherData.dt*1000).getDate())}</Text> )}
+                        {isLoading ? ( <Text>Lataa...</Text> ) : (
+                            <Text style={styles.timeText}>{new Date(weatherData.dt*1000).getHours().toString().padStart(2, '0')}:
+                            {new Date(weatherData.dt*1000).getMinutes().toString().padStart(2, '0')}</Text> )}
+                    </View>
                 </View>
-                <View style={styles.temperatureContainer}>
-                    {isLoading ? ( <Text>Lataa...</Text>) : (
-                        <WeatherIcon iconCode={ weatherData.weather[0].icon } />)}
+                
+                {/*päiväys, tuuli ja kosteus*/}
+                <View style={styles.specificWeatherDataContainer}>
+                    <View style={styles.temperatureContainer}>
+                        {isLoading ? ( <Text>Lataa...</Text>) : (
+                            <WeatherIcon iconCode={ weatherData.weather[0].icon } />)}
 
-                    {isLoading ? ( <Text>Lataa...</Text>) : (
-                        <Text style={styles.temperatureText}>{Math.round(parseFloat(weatherData.main.temp))} {String.fromCodePoint(8451)}</Text>)}
-                </View>
-            </View>
-            
-            {/*päiväys, tuuli ja kosteus*/}
-            <View style={styles.specificWeatherDataContainer}>
-                <View style={styles.cityNameContainer}>
-                    {isLoading ? ( <Text>Lataa...</Text> ) : (
-                        <Text style={styles.dateText}>{new Date(weatherData.dt*1000).toLocaleString('default', { month: 'short'})} 
-                        {" "}{addSuffix(new Date(weatherData.dt*1000).getDate())}</Text> )}
-                    {isLoading ? ( <Text>Lataa...</Text> ) : (
-                        <Text style={styles.timeText}>{new Date(weatherData.dt*1000).getHours().toString().padStart(2, '0')}:
-                        {new Date(weatherData.dt*1000).getMinutes().toString().padStart(2, '0')}</Text> )}
-                </View>
-                <View style={styles.cityNameContainer}>
-                    {isLoading ? ( <Text>Lataa...</Text>) : (
-                        <Text style={styles.weatherExtaInfo}>Tuuli: {weatherData.wind.speed} m/s</Text>)}
-                    {isLoading ? ( <Text>Lataa...</Text>) : (
-                        <Text style={styles.weatherExtaInfo}>Kosteus: {weatherData.main.humidity} %</Text>)}
-                    {isLoading ? ( <Text>Lataa...</Text>) : (
-                        <Text style={styles.weatherExtaInfo}>Sademäärä: {weatherData.rain?.['1h'] || 0} mm</Text>)}
+                        {isLoading ? ( <Text>Lataa...</Text>) : (
+                            <Text style={styles.temperatureText}>{Math.round(parseFloat(weatherData.main.temp))} {String.fromCodePoint(8451)}</Text>)}
+                    </View>
+                    <View style={styles.cityNameContainer}>
+                        {isLoading ? ( <Text>Lataa...</Text>) : (
+                            <Text style={styles.weatherExtaInfo}>Tuuli: {weatherData.wind.speed} m/s</Text>)}
+                        {isLoading ? ( <Text>Lataa...</Text>) : (
+                            <Text style={styles.weatherExtaInfo}>Kosteus: {weatherData.main.humidity} %</Text>)}
+                        {isLoading ? ( <Text>Lataa...</Text>) : (
+                            <Text style={styles.weatherExtaInfo}>Sademäärä {"(3 h)"}: {weatherData.rain?.['3h'] || 0} mm</Text>)}
+                    </View>
                 </View>
             </View>
 

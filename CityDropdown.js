@@ -20,7 +20,6 @@ function CityDropdown({ onSelect })
         else {
             onSelect([city]);
         }
-        
     };
 
     const dropDownListSelections = [ { name: 'Näytä kaikki kaupungit', all: true }, ...cities];
@@ -29,9 +28,10 @@ function CityDropdown({ onSelect })
         <View>
             {/*valikko on kiinni*/}
             <TouchableOpacity onPress={handleDropdownToggle}>
-                <Text style={styles.selectCityText}>
-                    {'Kaikki kaupungit'}
-                </Text>
+                <View style={styles.dropDownListTitleContainer}>
+                    <Text style={styles.dropDownListTitle}>{'Kaikki kaupungit'}</Text>
+                    <Text style={styles.downArrowMark}>{'v'}</Text>
+                </View>
             </TouchableOpacity>
 
             {/*valikko on auki*/}
@@ -39,7 +39,7 @@ function CityDropdown({ onSelect })
             <View style={styles.dropDownList}>
                 { dropDownListSelections.map((city) => (
                     <TouchableOpacity key={city.name} onPress={() => handleCitySelect(city)}>
-                        <Text style={styles.selectCityText}>{city.name}</Text>
+                        <Text style={styles.dropDownCityText}>{city.name}</Text>
                     </TouchableOpacity>
                 ))}
             </View> )}
